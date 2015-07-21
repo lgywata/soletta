@@ -115,7 +115,7 @@
       "url": "http://solettaproject.org/doc/latest/node_types/calamari_lever.html"
     },
     {
-      "category": "internal",
+      "category": "output/hw",
       "description": "RGB led control for calamari lure",
       "in_ports": [
         {
@@ -166,7 +166,7 @@
       ]
     },
     {
-      "category": "internal",
+      "category": "output/hw",
       "description": "",
       "in_ports": [
         {

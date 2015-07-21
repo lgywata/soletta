@@ -1,0 +1,7 @@
+INPORT=ctl.RED:RED
+INPORT=ctl.GREEN:GREEN
+INPORT=ctl.BLUE:BLUE
+
+ctl(calamari/rgb-ctl) RED -> IN red(gpio/writer)
+ctl GREEN -> IN green(gpio/writer)
+ctl BLUE -> IN blue(gpio/writer)
