@@ -158,7 +158,7 @@ sol_json_scanner_get_mem_offset(const struct sol_json_scanner *scanner, const vo
 static inline enum sol_json_type
 sol_json_mem_get_type(const void *mem)
 {
-    const char *p = (const char *)mem;
+    const unsigned char *p = (const unsigned char *)mem;
 
     if (strchr("{}[],:tfn\"", *p))
         return (enum sol_json_type)*p;
