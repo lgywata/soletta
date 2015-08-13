@@ -31,6 +31,7 @@
  */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "sol-mainloop-impl.h"
 #include "sol-macros.h"
@@ -158,6 +159,7 @@ log_error:
 SOL_API int
 sol_run(void)
 {
+    printf("sol_run\n");
     if (_init_count == 0) {
         SOL_CRI("sol_init() was not called");
         return EXIT_FAILURE;
