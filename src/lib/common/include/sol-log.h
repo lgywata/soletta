@@ -35,11 +35,16 @@
 #include "sol-common-buildopts.h"
 
 #include "sol-macros.h"
-#include <inttypes.h>
 #include <stdint.h>
 #include <stdarg.h>
 #include <stdbool.h>
+
+#ifdef SOL_PLATFORM_ZEPHYR
+#include <stddef.h>
+#else
+#include <inttypes.h>
 #include <sys/types.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {

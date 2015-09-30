@@ -44,7 +44,10 @@
 #include <stdarg.h>
 #include <string.h>
 #include <sys/types.h>
+
+#ifndef SOL_PLATFORM_ZEPHYR
 #include <time.h>
+#endif
 
 #ifdef SOL_PLATFORM_LINUX
 #include "sol-util-file.h"
@@ -118,9 +121,11 @@ double sol_util_strtodn(const char *nptr, char **endptr, ssize_t len, bool use_l
 /* number of microseconds in a second: 1,000,000 */
 #define USEC_PER_SEC  1000000ULL
 /* number of nanoseconds in a milliseconds: 1,000,000,000 / 1,000 = 1,000,000 */
-#define NSEC_PER_MSEC 1000000ULL
+
+#ifndef NSEC_PER_MSEC 1000000ULL
 /* number of nanoseconds in a microsecond: 1,000,000,000 / 1,000,000 = 1,000 */
 #define NSEC_PER_USEC 1000ULL
+#indif
 
 struct sol_uuid {
     uint8_t bytes[16];

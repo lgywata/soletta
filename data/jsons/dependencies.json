@@ -211,6 +211,10 @@
       ]
     },
     {
+      "dependency": "zephyr",
+      "type": "ccode"
+    },
+    {
       "dependency": "dlfcn_h",
       "type": "ccode",
       "headers": [

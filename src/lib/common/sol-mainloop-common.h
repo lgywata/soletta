@@ -32,7 +32,11 @@
 
 #pragma once
 
+#include "sol-common-buildopts.h"
+
+#ifndef SOL_PLATFORM_ZEPHYR
 #include <time.h>
+#endif
 
 #include "sol-util.h"
 #include "sol-vector.h"

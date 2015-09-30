@@ -30,24 +30,90 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
 
-{{
-st.on_value("PLATFORM_LINUX", "y", "#define SOL_PLATFORM_LINUX 1", "")
-st.on_value("PLATFORM_RIOTOS", "y", "#define SOL_PLATFORM_RIOT 1", "")
-st.on_value("PLATFORM_CONTIKI", "y", "#define SOL_PLATFORM_CONTIKI 1", "")
-st.on_value("PLATFORM_ZEPHYR", "y", "#define SOL_PLATFORM_ZEPHYR 1", "")
-}}
+#include "sol-platform.h"
+#include "sol-platform-impl.h"
 
-{{
-st.on_value("LOG", "y", "#define SOL_LOG_ENABLED 1", "")
-}}
+int
+sol_platform_impl_init(void)
+{
+    return 0;
+}
 
-{{
-st.on_value("MODULES", "y", "#define SOL_DYNAMIC_MODULES 1", "")
-}}
+void
+sol_platform_impl_shutdown(void)
+{
+}
 
-#ifdef SOL_PLATFORM_LINUX
-#define SOL_MAINLOOP_FD_ENABLED 1
-#define SOL_MAINLOOP_FORK_WATCH_ENABLED 1
-#endif
+int
+sol_platform_impl_get_state(void)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_add_service_monitor(const char *service)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_del_service_monitor(const char *service)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_start_service(const char *service)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_stop_service(const char *service)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_restart_service(const char *service)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_set_target(const char *target)
+{
+    SOL_CRI("Unsupported");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_get_machine_id(char id[static 33])
+{
+    SOL_CRI("Not implemented");
+    return -ENOTSUP;
+}
+
+int
+sol_platform_impl_get_serial_number(char **number)
+{
+    SOL_CRI("Not implemented");
+    return -ENOTSUP;
+}
+
+char *
+sol_platform_impl_get_os_version(void)
+{
+    SOL_CRI("Not implemented");
+    return NULL;
+}

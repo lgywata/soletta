@@ -29,4 +29,7 @@ obj-libshared-$(PLATFORM_RIOTOS) += \
 obj-libshared-$(PLATFORM_CONTIKI) += \
     sol-util-contiki.o
 
+obj-libshared-$(PLATFORM_ZEPHYR) += \
+    sol-util-zephyr.o
+
 obj-libshared-y-extra-cflags += -fvisibility=default
