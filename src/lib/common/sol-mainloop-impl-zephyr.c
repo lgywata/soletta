@@ -43,6 +43,19 @@
 #include <microkernel/base_api.h>
 #include <microkernel/ticks.h>
 
+#include "version.h"
+/*The content of this struct is overwritten in a post-build script */
+struct version_header version_header __attribute__((section(".version_header")))
+    __attribute__((used)) = {
+    .magic = {'$', 'B', '!', 'N'},
+    .version = 0x01,
+    .reserved_1 = {0, 0, 0, 0},
+    .reserved_2 = {0, 0, 0, 0},
+};
+
+#include <device.h>
+
+
 #define DEFAULT_USLEEP_TIME 10000
 #define DEFAULT_USLEEP_TIME_TICKS (sys_clock_ticks_per_sec * DEFAULT_USLEEP_TIME) / NSEC_PER_SEC
 

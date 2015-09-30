@@ -349,18 +349,32 @@ struct sol_main_callbacks {
         sol_shutdown();                                   \
         PROCESS_END();                                    \
     }
-#else
-#define SOL_MAIN(CALLBACKS)                                          \
-    int main(int argc, char *argv[]) {                              \
-        return sol_mainloop_default_main(&(CALLBACKS), argc, argv);  \
+
+#elif defined SOL_PLATFORM_ZEPHYR
+
+#define SOL_MAIN_DEFAULT(STARTUP, SHUTDOWN) \
+    void mainTask(void)                     \
+    {                                       \
+        if (sol_init() < 0)                 \
+            printk("error: sol_init()\n");  \
+        STARTUP();                          \
+        if (sol_run() < 0)                  \
+            printk("error: sol_run()\n");   \
+        SHUTDOWN();                         \
     }
 
-#define SOL_MAIN_DEFAULT(STARTUP, SHUTDOWN)                              \
+#else
+#define SOL_MAIN(CALLBACKS)                                         \
+    int main(int argc, char *argv[]) {                              \
+        return sol_mainloop_default_main(&(CALLBACKS), argc, argv); \
+    }
+
+#define SOL_MAIN_DEFAULT(STARTUP, SHUTDOWN)                                \
     static const struct sol_main_callbacks sol_main_callbacks_instance = { \
-        .api_version = SOL_MAIN_CALLBACKS_API_VERSION,                   \
-        .startup = (STARTUP),                                           \
-        .shutdown = (SHUTDOWN),                                         \
-    };                                                                  \
+        .api_version = SOL_MAIN_CALLBACKS_API_VERSION,                     \
+        .startup = (STARTUP),                                              \
+        .shutdown = (SHUTDOWN),                                            \
+    };                                                                     \
     SOL_MAIN(sol_main_callbacks_instance)
 #endif
 
