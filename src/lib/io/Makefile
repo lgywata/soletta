@@ -28,8 +28,6 @@ obj-io-aio-$(PLATFORM_RIOTOS) += \
     sol-aio-riot.o
 obj-io-aio-$(PLATFORM_LINUX) += \
     sol-aio-linux.o
-obj-io-gpio-$(PLATFORM_ZEPHYR) += \
-    sol-gpio-zephyr.o
 
 obj-io-gpio-$(USE_GPIO) := \
     sol-gpio-common.o
@@ -39,6 +37,8 @@ obj-io-gpio-$(PLATFORM_CONTIKI) += \
     sol-gpio-contiki.o
 obj-io-gpio-$(PLATFORM_LINUX) += \
     sol-gpio-linux.o
+obj-io-gpio-$(PLATFORM_ZEPHYR) += \
+    sol-gpio-zephyr.o
 
 obj-io-pwm-$(USE_PWM) := \
     sol-pwm-common.o

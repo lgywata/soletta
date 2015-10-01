@@ -29,8 +29,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+#ifdef SOL_PLATFORM_ZEPHYR
 #include <dlfcn.h>
+#endif
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
