@@ -53,6 +53,7 @@ extern "C" {
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#ifdef SOL_PLATFORM_RIOT
 #include <unistd.h>
 
 static inline int
@@ -77,6 +78,7 @@ err:
     close(fd);
     return -1;
 }
+#endif
 #endif
 
 #ifndef HAVE_DECL_MEMMEM
