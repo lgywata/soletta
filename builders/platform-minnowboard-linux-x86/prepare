@@ -1,0 +1,35 @@
+#!/bin/bash
+
+PREPARE_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
+source $PREPARE_DIR/../common/common-prepare.sh
+
+pushd $COMPILE_DIR
+
+git clone $SOLETTA_TARGET_REPO soletta-target
+pushd soletta-target
+
+# TODO: set PKG_CONFIG_PATH and friends.
+make alldefconfig
+sed -i 's/^CC_SANITIZE=y/CC_SANITIZE=n/' .config
+make -j $PARALLEL_JOBS
+popd
+
+which arch-installer.sh
+
+if [ $? -ne 0 ]; then
+    echo "
+         arch-installer not found!
+         Please clone https://github.com/lucasdemarchi/toolbox.git and put it in your PATH
+         "
+    exit 1
+fi
+
+sudo arch-installer.sh -x $PREPARE_DIR/hook.sh base.img
+
+cp \
+    $PREPARE_DIR/copy-tree-to-linux-image.sh \
+    $PREPARE_DIR/../common/common-compile.sh \
+    $PREPARE_DIR/compile \
+    $COMPILE_DIR
+
+chmod +x $COMPILE_DIR/compile

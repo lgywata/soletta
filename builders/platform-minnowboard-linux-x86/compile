@@ -1,0 +1,20 @@
+#!/bin/bash
+
+COMPILE_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
+SOLETTA_TARGET=$COMPILE_DIR/soletta-target/build/soletta_sysroot
+source $COMPILE_DIR/common-compile.sh
+
+mkdir -p output-tree/usr/bin
+
+gcc -Werror -Wall -o output-tree/usr/bin/app -I. -I$SOLETTA_TARGET/usr/include/soletta -L$SOLETTA_TARGET/usr/lib -lsoletta $(find -name '*.c')
+
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+IMAGE=$PLATFORM_NAME.img
+
+cp $COMPILE_DIR/base.img $IMAGE
+sudo $COMPILE_DIR/copy-tree-to-linux-image.sh $IMAGE output-tree
+zip output.zip $IMAGE
+rm $IMAGE
