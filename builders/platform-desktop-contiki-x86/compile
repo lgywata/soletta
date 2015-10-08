@@ -1,0 +1,29 @@
+#!/bin/bash
+
+COMPILE_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
+SOLETTA_TARGET=$COMPILE_DIR/contiki/external_lib/soletta/soletta/build/soletta_sysroot
+source $COMPILE_DIR/common-compile.sh
+
+for dir in `find -type d`; do
+    mkdir -p obj_native/$dir
+done
+
+cat > Makefile <<EOF
+CONTIKI_PROJECT = main
+USE_EXT_LIBS += soletta
+
+all: \$(CONTIKI_PROJECT)
+
+PROJECT_SOURCEFILES += $(find -name '*.c' | grep -v main.c | tr '\n' ' ')
+
+CONTIKI = $COMPILE_DIR/contiki
+include \$(CONTIKI)/Makefile.include
+EOF
+
+make V=1
+
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+zip output.zip main.native

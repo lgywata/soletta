@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PREPARE_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
+source $PREPARE_DIR/../common/common-prepare.sh
+
+cd $COMPILE_DIR
+
+git clone git@ab02:contiki.git
+cd contiki
+git checkout soletta-port
+
+cp $PREPARE_DIR/Makefile.soletta ./external_lib/soletta/Makefile
+
+cd examples/soletta-gpio-example
+make
+
+cp \
+    $PREPARE_DIR/compile \
+    $PREPARE_DIR/../common/common-compile.sh \
+    $COMPILE_DIR
+
+chmod +x $COMPILE_DIR/compile
