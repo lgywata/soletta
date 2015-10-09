@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# TODO: Prepare script should handle this automatically.
+
+PREPARE_DIR=$(dirname $(realpath ${BASH_SOURCE[0]}))
+
+source $PREPARE_DIR/../common/common-prepare.sh
+
+####################### TODO ##########################
+# Clone soletta-target as we do for the other platforms
+# and compile it with the toolchain provided by
+# Barbieri's SDK (i586-quark-linux-musl). Replace the
+# libsoletta.a within the SDK by the generated one.
+######################################################
+
+which i586-quark-linux-musl-gcc
+
+if [ $? -ne 0 ]; then
+    echo "
+          Cross compiler not found. Please install SDK: 
+          http://ab02.bz.intel.com/~gbarbier/solda-intel-galileo-gen2-soletta-master.tar.bz2
+         "
+    exit 1
+fi
+
+cp \
+    $PREPARE_DIR/../common/common-compile.sh \
+    $PREPARE_DIR/compile \
+    $PREPARE_DIR/base.img \
+    $PREPARE_DIR/flash.sh \
+    $COMPILE_DIR
+
+chmod +x $COMPILE_DIR/compile
+chmod +x $COMPILE_DIR/flash.sh
+
+rm -rf $PREPARE_DIR/opt*

@@ -76,7 +76,7 @@ if [[ -z "$SOLETTA_HOST_REPO" ]]; then
 fi
 
 for dir in $SCRIPT_DIR/*/; do
-    if [[ $dir =~ platform-* ]]; then
+    if [[ $dir =~ platform-[^galileo] ]] ; then
         $dir/prepare
     fi
 done
